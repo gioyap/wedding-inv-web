@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        tinos: ['var(--font-tinos)'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -67,14 +70,42 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        scroll: {
+          to: {
+            transform: 'translate(calc(-50% - 0.5rem))',
+          },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        'marquee-reverse': {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+        'fade-left': {
+          '0%': { opacity: "0", transform: 'translateX(100px)' },
+          '100%': { opacity: "1", transform: 'translateX(0)' },
+        },
+        'fade-right': {
+          '0%': { opacity: "0", transform: 'translateX(-100px)' },
+          '100%': { opacity: "1", transform: 'translateX(0)' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        scroll: 'scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
+        marquee: 'marquee 30s linear infinite',
+        'marquee-slow': 'marquee 60s linear infinite',
+        'marquee-fast': 'marquee 15s linear infinite',
+        'marquee-reverse': 'marquee-reverse 30s linear infinite',
+        'fade-left': 'fade-left 0.5s ease-out',
+        'fade-right': 'fade-right 0.5s ease-out',
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwindcss-animated")],
 } satisfies Config;
 
 export default config;
