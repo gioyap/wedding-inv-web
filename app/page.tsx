@@ -1,4 +1,7 @@
 "use client";
+import CardHoverImagePage from "@/components/app/cardhover-image";
+import { DressCode } from "@/components/app/dresscode";
+import { Entourage } from "@/components/app/entourage";
 import Intro from "@/components/app/intro";
 import { InfiniteMovingCards } from "@/components/app/movingcards";
 import { ImagesSlider } from "@/components/ui/images-slider";
@@ -16,7 +19,8 @@ export default function  ImagesSliderDemo() {
   ];
   return (
  <>
-     <ImagesSlider className="xl:w-screen h-screen relative" images={images}>
+    <section id="home">
+    <ImagesSlider className="xl:w-screen h-screen relative" images={images}>
       <motion.div
         initial={{
           opacity: 0,
@@ -42,14 +46,27 @@ export default function  ImagesSliderDemo() {
         </div>
       </motion.div>
     </ImagesSlider>
+    </section>
 
     <section>
       <Intro/>
     </section>
     
-    <section>
+    <section id="gallery">
       <InfiniteMovingCards/>
     </section>
- </>
-  );
+
+    <section id="entourage">
+      <Entourage />
+    </section>
+
+    <section id="dresscode" className="bg-[#FFFDF7] dark:bg-[#1C1F26]">
+      <DressCode/>
+      </section>
+
+    <section id="timeline" className="bg-[#FDF9F3] dark:bg-[#2A2E37]">
+      <CardHoverImagePage/>
+    </section>
+</>
+);
 }

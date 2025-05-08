@@ -62,15 +62,23 @@ export const FloatingNav = ({
       >
         {navItems.map((navItem: any, idx: number) => (
           <a
-            key={`link=${idx}`}
-            href={navItem.link}
-            className={cn(
-              "relative dark:text-neutral-50 items-center flex text-black dark:hover:text-neutral-300 hover:text-neutral-500"
-            )}
-          >
-            <span className="block sm:hidden">{navItem.icon}</span>
-            <span className="hidden sm:block text-sm">{navItem.name}</span>
-          </a>
+          key={`link=${idx}`}
+          href={navItem.link}
+          onClick={(e) => {
+            e.preventDefault();
+            const el = document.querySelector(navItem.link);
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
+          className={cn(
+            "relative dark:text-neutral-50 items-center flex text-black dark:hover:text-neutral-300 hover:text-neutral-500"
+          )}
+        >
+          <span className="block sm:hidden">{navItem.icon}</span>
+          <span className="hidden sm:block text-sm">{navItem.name}</span>
+        </a>
+        
         ))}
       </motion.div>
     </AnimatePresence>

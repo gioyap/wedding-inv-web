@@ -25,13 +25,13 @@ const Intro = () => {
   return (
     <div
       ref={ref}
-      className="min-h-screen flex flex-col justify-center items-center bg-pink-50 text-center px-4 py-16"
+      className="min-h-screen flex flex-col justify-center items-center bg-[#FFFDF7] dark:bg-[#1C1F26] text-gray-800 dark:text-gray-100 text-center px-4 py-16"
     >
       <motion.div
         initial={{ x: -1000, opacity: 0 }}
         animate={isInView ? { x: 0, opacity: 1 } : {}}
         transition={{ duration: 2, ease: 'easeOut' }}
-        className={`text-5xl lg:text-[5rem] text-pink-700 mb-6 ${meowScript.className}`}
+        className={`text-5xl lg:text-[5rem] text-pink-700 dark:text-pink-400 mb-6 ${meowScript.className}`}
       >
         It's a Match!
       </motion.div>
@@ -40,9 +40,9 @@ const Intro = () => {
         initial={{ x: 1000, opacity: 0 }}
         animate={isInView ? { x: 0, opacity: 1 } : {}}
         transition={{ duration: 2.2, ease: 'easeOut' }}
-        className=' max-w-xs md:max-w-2xl px-4 text-lg md:text-2xl lg:text-xl xl:text-2xl text-gray-700'
+        className="max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-4xl mx-auto text-lg md:text-2xl lg:text-xl xl:text-2xl"
       >
-        <p className=" mb-4">
+        <p className="mb-4">
           Our fairy tale begins, and we would be honored to have you with us as we create memories filled with love and magic.
         </p>
         <p>
@@ -54,7 +54,7 @@ const Intro = () => {
         variants={flipUpVariants}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
-        className="pt-32 text-pink-600 text-xl font-semibold tracking-wide"
+        className="pt-32 text-pink-600 dark:text-pink-300 text-xl font-semibold tracking-wide"
         style={{ transformOrigin: 'bottom center', perspective: 1000 }}
       >
         #IvanSpecialLoveWithJila
