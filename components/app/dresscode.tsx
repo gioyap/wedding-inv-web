@@ -9,7 +9,7 @@ const meowScript = Meow_Script({
 export function DressCode() {
   return (
     <div className="max-w-5xl mx-auto px-8 py-16 text-center">
-      <h2 className={`text-4xl md:text-5xl xl:text-7xl text-pink-700 ${meowScript.className}`}>
+      <h2 className={`text-5xl xl:text-7xl text-pink-700 ${meowScript.className}`}>
         Dress Code Guide
       </h2>
       <HoverEffect items={projects} />

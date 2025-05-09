@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
-import { JSX, useState } from "react";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+import { JSX, useRef, useState } from "react";
 
 export const CardHoverImage = ({
   items,
@@ -24,40 +24,56 @@ export const CardHoverImage = ({
         className
       )}
     >
-      {items.map((item, idx) => (
-        <div
-          key={item.title}
-          className="relative group block h-96 xl:h-[32rem] w-full cursor-pointer"
-          onMouseEnter={() => setHoveredIndex(idx)}
-          onMouseLeave={() => setHoveredIndex(null)}
-        >
-          {/* Preload the hover image */}
-          <div
-            className="hidden"
-            style={{ backgroundImage: `url(${item.hoverImage})` }}
-          />
+      {items.map((item, idx) => {
+        const ref = useRef(null);
+        const isInView = useInView(ref, { once: true, margin: "-200px" });
 
-          <AnimatePresence>
-            {hoveredIndex === idx && (
-              <motion.div
-                className="absolute inset-0 rounded-md bg-black/50 z-10"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { duration: 0.3 } }}
-                exit={{ opacity: 0, transition: { duration: 0.2 } }}
-              />
-            )}
-          </AnimatePresence>
-
-          <Card
-            image={item.image}
-            hoverImage={item.hoverImage}
-            isHovered={hoveredIndex === idx}
+        return (
+          <motion.div
+            key={item.title}
+            ref={ref}
+            className="relative group block h-96 xl:h-[32rem] w-full cursor-pointer"
+            onMouseEnter={() => setHoveredIndex(idx)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            initial={{ opacity: 0, rotateX: 90, transformPerspective: 1000 }}
+            animate={
+              isInView
+                ? {
+                    opacity: 1,
+                    rotateX: 0,
+                    transition: { duration: 0.8, ease: "easeOut" },
+                  }
+                : {}
+            }
           >
-            <CardTitle>{item.title}</CardTitle>
-            <CardDescription>{item.description}</CardDescription>
-          </Card>
-        </div>
-      ))}
+            {/* Preload the hover image */}
+            <div
+              className="hidden"
+              style={{ backgroundImage: `url(${item.hoverImage})` }}
+            />
+
+            <AnimatePresence>
+              {hoveredIndex === idx && (
+                <motion.div
+                  className="absolute inset-0 rounded-md bg-black/50 z-10"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { duration: 0.3 } }}
+                  exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                />
+              )}
+            </AnimatePresence>
+
+            <Card
+              image={item.image}
+              hoverImage={item.hoverImage}
+              isHovered={hoveredIndex === idx}
+            >
+              <CardTitle>{item.title}</CardTitle>
+              <CardDescription>{item.description}</CardDescription>
+            </Card>
+          </motion.div>
+        );
+      })}
     </div>
   );
 };

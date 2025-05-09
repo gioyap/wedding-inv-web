@@ -3,6 +3,7 @@ import CardHoverImagePage from "@/components/app/cardhover-image";
 import { DressCode } from "@/components/app/dresscode";
 import { Entourage } from "@/components/app/entourage";
 import Intro from "@/components/app/intro";
+import MapLocation from "@/components/app/maplocation";
 import { InfiniteMovingCards } from "@/components/app/movingcards";
 import { ImagesSlider } from "@/components/ui/images-slider";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
@@ -64,8 +65,12 @@ export default function  ImagesSliderDemo() {
       <DressCode/>
       </section>
 
-    <section id="timeline" className="bg-[#FDF9F3] dark:bg-[#2A2E37]">
+    <section id="timeline" className="bg-[#FDF9F3] dark:bg-[#2A2E37] py-16">
       <CardHoverImagePage/>
+    </section>
+    
+    <section>
+      <MapLocation/>
     </section>
 </>
 );

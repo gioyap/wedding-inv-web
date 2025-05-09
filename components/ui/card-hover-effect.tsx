@@ -1,7 +1,6 @@
+import { useRef, useState, JSX } from "react";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
-
-import { JSX, useState } from "react";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 
 export const HoverEffect = ({
   items,
@@ -22,36 +21,52 @@ export const HoverEffect = ({
         className
       )}
     >
-      {items.map((item, idx) => (
-        <a
-          key={item.title}
-          className="relative group  block p-2 h-full w-full"
-          onMouseEnter={() => setHoveredIndex(idx)}
-          onMouseLeave={() => setHoveredIndex(null)}
-        >
-          <AnimatePresence>
-            {hoveredIndex === idx && (
-              <motion.span
-              className="absolute inset-0 h-full w-full bg-[#C88EA7]/80 dark:bg-[#9C536B]/80 block rounded-3xl"
-              layoutId="hoverBackground"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.15 },
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: { duration: 0.15, delay: 0.2 },
-                }}
-              />
-            )}
-          </AnimatePresence>
-          <Card>
-            <CardTitle>{item.title}</CardTitle>
-            <CardDescription>{item.description}</CardDescription>
-          </Card>
-        </a>
-      ))}
+      {items.map((item, idx) => {
+        const ref = useRef(null);
+        const isInView = useInView(ref, { once: true, margin: "-200px" });
+
+        return (
+          <motion.div
+            key={item.title}
+            ref={ref}
+            className="relative group block p-2 h-full w-full"
+            onMouseEnter={() => setHoveredIndex(idx)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            initial={{ opacity: 0, rotateX: -90, transformPerspective: 1000 }}
+            animate={
+              isInView
+                ? {
+                    opacity: 1,
+                    rotateX: 0,
+                    transition: { duration: 0.8, ease: "easeOut" },
+                  }
+                : {}
+            }
+          >
+            <AnimatePresence>
+              {hoveredIndex === idx && (
+                <motion.span
+                  className="absolute inset-0 h-full w-full bg-[#C88EA7]/80 dark:bg-[#9C536B]/80 block rounded-3xl"
+                  layoutId="hoverBackground"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                    transition: { duration: 0.15 },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    transition: { duration: 0.15, delay: 0.2 },
+                  }}
+                />
+              )}
+            </AnimatePresence>
+            <Card>
+              <CardTitle>{item.title}</CardTitle>
+              <CardDescription>{item.description}</CardDescription>
+            </Card>
+          </motion.div>
+        );
+      })}
     </div>
   );
 };

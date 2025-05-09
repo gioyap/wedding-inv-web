@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { Meow_Script } from 'next/font/google';
+import { motion, useInView } from "framer-motion";
 
 const meowScript = Meow_Script({
   subsets: ['latin'],
@@ -9,13 +10,25 @@ const meowScript = Meow_Script({
 });
 
 export const Entourage = () => {
+  const refTop = useRef(null);
+  const refBottom = useRef(null);
+  const isTopInView = useInView(refTop, { once: true, margin: "-200px" });
+  const isBottomInView = useInView(refBottom, { once: true, margin: "-200px" });
+
   return (
     <div className="py-16 bg-[#FDF9F3] dark:bg-[#2A2E37] text-[#101b4b] dark:text-white">
-      <h2 className={`text-3xl md:text-5xl xl:text-7xl font-bold text-center mb-10 text-[#101b4b] dark:text-[#f6d673] ${meowScript.className}`}>
-        The Entourage 
-      </h2>
+      {/* First Half */}
+      <motion.div
+        ref={refTop}
+        initial={{ opacity: 0, y: 100 }}
+        animate={isTopInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="space-y-12 text-center max-w-xs md:max-w-md lg:max-w-lg xl:max-w-5xl 2xl:max-w-7xl mx-auto"
+      >
+        <h2 className={`text-5xl xl:text-7xl font-bold text-center mb-10 text-[#101b4b] dark:text-[#f6d673] ${meowScript.className}`}>
+          The Entourage 
+        </h2>
 
-      <div className="space-y-12 text-center max-w-xs md:max-w-md lg:max-w-lg xl:max-w-5xl 2xl:max-w-7xl mx-auto">
         {/* Parents of the Groom & Bride */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
@@ -53,7 +66,16 @@ export const Entourage = () => {
             <p>Mr. Kevin Adona</p>
           </div>
         </div>
+      </motion.div>
 
+      {/* Second Half */}
+      <motion.div
+        ref={refBottom}
+        initial={{ opacity: 0, y: 100 }}
+        animate={isBottomInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+        className="mt-20 space-y-12 text-center max-w-xs md:max-w-md lg:max-w-lg xl:max-w-5xl 2xl:max-w-7xl mx-auto"
+      >
         {/* Secondary Sponsors */}
         <div>
           <h3 className="text-xl font-semibold mb-2">Secondary Sponsors</h3>
@@ -101,7 +123,7 @@ export const Entourage = () => {
             <p>Mr. Aldrin Medrano & Ms. Monique Eusebio</p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
