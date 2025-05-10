@@ -2,7 +2,9 @@
 import CardHoverImagePage from "@/components/app/cardhover-image";
 import { DressCode } from "@/components/app/dresscode";
 import { Entourage } from "@/components/app/entourage";
+import FAQPage from "@/components/app/faqpage";
 import Intro from "@/components/app/intro";
+import InvitationPage from "@/components/app/invitationpage";
 import MapLocation from "@/components/app/maplocation";
 import { InfiniteMovingCards } from "@/components/app/movingcards";
 import { ImagesSlider } from "@/components/ui/images-slider";
@@ -71,6 +73,14 @@ export default function  ImagesSliderDemo() {
     
     <section>
       <MapLocation/>
+    </section>
+
+    <section className="bg-[#FDF9F3] dark:bg-[#2A2E37]">
+      <FAQPage/>
+    </section>
+
+    <section>
+      <InvitationPage/>
     </section>
 </>
 );
