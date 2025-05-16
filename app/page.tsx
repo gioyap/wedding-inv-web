@@ -71,15 +71,15 @@ export default function  ImagesSliderDemo() {
       <CardHoverImagePage/>
     </section>
     
-    <section>
+    <section id="maps">
       <MapLocation/>
     </section>
 
-    <section className="bg-[#FDF9F3] dark:bg-[#2A2E37]">
+    <section id="faqs" className="bg-[#FDF9F3] dark:bg-[#2A2E37]">
       <FAQPage/>
     </section>
 
-    <section>
+    <section id="rsvp">
       <InvitationPage/>
     </section>
 </>

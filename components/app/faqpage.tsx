@@ -2,14 +2,13 @@
 
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { motion, useInView } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Meow_Script } from 'next/font/google';
 
 const meowScript = Meow_Script({
   subsets: ['latin'],
   weight: ['400'],
 });
-
 
 const faqs = [
   {
@@ -47,7 +46,10 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen md:min-h-0 lg:min-h-screen text-[#101b4b] dark:text-[#f6d673] mx-auto max-w-xs md:max-w-lg lg:max-w-xl xl:max-w-3xl py-16">
       <div className="max-w-3xl mx-auto space-y-6">
-        <h1 className={`text-5xl xl:text-7xl font-bold text-center mb-10 ${meowScript.className}`}>Frequently Asked Questions</h1>
+        <h1 className={`text-5xl xl:text-7xl font-bold text-center mb-10 ${meowScript.className}`}>
+          Frequently Asked Questions
+        </h1>
+
         {faqs.map((faq, index) => (
           <div
             key={index}
@@ -64,9 +66,23 @@ export default function FAQPage() {
                 }`}
               />
             </button>
-            {openIndex === index && (
-              <p className="mt-4 whitespace-pre-line text-base dark:text-white">{faq.answer}</p>
-            )}
+
+            <AnimatePresence initial={false}>
+              {openIndex === index && (
+                <motion.div
+                  key="content"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden mt-4"
+                >
+                  <p className="whitespace-pre-line text-base dark:text-white">
+                    {faq.answer}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </div>

@@ -26,7 +26,7 @@ const defaultMapOptions = {
   zoomControl: true,
   tilt: 0,
   gestureHandling: 'auto',
-  mapTypeId: 'satellite',
+  mapTypeId: 'hybrid',
 };
 
 const MapComponent = () => {
