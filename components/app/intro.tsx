@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Meow_Script } from 'next/font/google';
 import { motion, useInView } from 'framer-motion';
 
@@ -11,7 +11,7 @@ const meowScript = Meow_Script({
 
 const Intro = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-500px' });
+  const isInView = useInView(ref, { once: true, margin: '-200px' });
 
   const flipUpVariants = {
     hidden: { rotateX: -90, opacity: 0 },
